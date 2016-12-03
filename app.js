@@ -6,7 +6,7 @@ function Final(fecha, link, imagenLink, tema) {
     this.imagen = imagenLink;
 }
 
-
+//
 var app = angular.module('app', []);
 
 
