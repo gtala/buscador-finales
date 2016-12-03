@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <style type="text/css">
+        @media screen and (min-width: 768px) {
+            .mimodal .modal-dialog {
+                width: 1200px;
+            }
+        }
+    </style>
+    <meta charset="utf-8" />
+    <title>Buscador finales UTN</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <script>
+        document.write('<base href="' + document.location + '" />');
+    </script>
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+    <div class="jumbotron masthead">
+        <div class="container">
+            <h1>Buscador de finales</h1>
+            <p>Herramienta para navegar finales de UTN</p>
+            <ul class="masthead-links">
+                <li>
+                    Version 1.0.0
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <th>
+                    <table>
+                        <tr>
+                            <td>#</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+                <th>
+                    <table>
+                        <tr>
+                            <td>Materia</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+                <th>
+                    <table>
+                        <tr>
+                            <td>Fecha</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" ng-model="criterio" style="width:100px"></input>
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+                <th>
+                    <table>
+                        <tr>
+                            <td>Link foro</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+                <th>
+                    <table>
+                        <tr>
+                            <td>Imagen</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="final in finales  | filter:buscar(criterio) track by $index">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{final.materia}}</td>
+                <td>{{final.fecha}}</td>
+                <td><button target="_blank" class="btn btn-success" ng-href="{{final.link}}">Ver en Utnianos</button></td>
+                <td>
+                    <button ng-class="{'ng-hide': final.imagen == '' , 'btn-primary': final.imagen != ''}" type="button" class="btn" data-toggle="modal" data-target="#_{{$index}}">ver final</button>
+                    <div id="_{{$index}}" class="mimodal modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="{{final.imagen}}" class="img-responsive">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>
