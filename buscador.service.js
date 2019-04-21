@@ -6,7 +6,7 @@
         .service('buscadorService', buscadorService)
 
     buscadorService.$inject = ['$http'];
-    
+
 
     const client = stitch.Stitch.initializeDefaultAppClient('buscadorutn-irarn');
     const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('buscador');
@@ -29,7 +29,7 @@
     function _getListadoFinalesMongo() {
         return client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
             db.collection('examenes').find({
-                owner_id: client.auth.user.id
+               // owner_id: client.auth.user.id
             }, {
                 limit: 100
             }).asArray()
