@@ -64,11 +64,22 @@
                 <th>
                     <table>
                         <tr>
+                            <td>Tipo</td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+                <th>
+                    <table>
+                        <tr>
                             <td>Fecha</td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" class="form-control" ng-model="filter.criterioFecha" style="width:100px"></input>
+                                    <!-- <input type="text" class="form-control" ng-model="filter.criterioFecha" style="width:100px"></input> -->
                             </td>
                         </tr>
                     </table>
@@ -103,6 +114,7 @@
             <tr ng-repeat="final in finales.datos  | filter:buscar(filter) track by $index">
                 <th scope="row">{{$index + 1}}</th>
                 <td>{{final.materia}}</td>
+                <td>{{final.tipo}}</td>
                 <td>{{final.fecha}}</td>
                 <td><button target="_blank" class="btn btn-success" ng-click="irAlForo(final)">Ver en utnianos</button>
                 </td>
@@ -130,6 +142,9 @@
                 </td>
                 <td>
                     <input type="text" class="form-control" ng-model="nuevoFinal.materia" style="width:100px"></input>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="nuevoFinal.tipo" style="width:100px"></input>
                 </td>
                 <td>
                     <input type="text" class="form-control" ng-model="nuevoFinal.fecha" style="width:100px"></input>
