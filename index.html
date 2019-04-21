@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="buscadorApp">
 
 <head>
     <style type="text/css">
@@ -15,19 +15,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <script>
-        document.write('<base href="' + document.location + '" />');
+    <meta name="author" content="Guilllermo Tala" />
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9">
     </script>
-    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
-    <script src="listadoFinales.js"></script>
-    <script src="app.js"></script>
 </head>
 
-<body ng-controller="MainCtrl">
+<body ng-controller='buscadorController'>
     <div class="jumbotron masthead">
         <div class="container">
             <h1>Buscador de finales</h1>
@@ -39,9 +34,6 @@
             </ul>
         </div>
     </div>
-
-
-
     <table class="table">
         <thead class="thead-inverse">
             <tr>
@@ -64,7 +56,7 @@
                         </tr>
                         <tr>
                             <td>
-                                &nbsp;
+                                <input type="text" class="form-control" ng-model="filter.criterioMateria" style="width:100px"></input>
                             </td>
                         </tr>
                     </table>
@@ -76,7 +68,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" class="form-control" ng-model="criterio" style="width:100px"></input>
+                                <input type="text" class="form-control" ng-model="filter.criterioFecha" style="width:100px"></input>
                             </td>
                         </tr>
                     </table>
@@ -108,28 +100,60 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="final in finales  | filter:buscar(criterio) track by $index">
+            <tr ng-repeat="final in finales.datos  | filter:buscar(filter) track by $index">
                 <th scope="row">{{$index + 1}}</th>
                 <td>{{final.materia}}</td>
                 <td>{{final.fecha}}</td>
-                <td><button target="_blank" class="btn btn-success" ng-click="irAlForo(final)">Ver en utnianos</button></td>
+                <td><button target="_blank" class="btn btn-success" ng-click="irAlForo(final)">Ver en utnianos</button>
+                </td>
                 <td>
-                    <button ng-class="{'ng-hide': final.imagen == '' , 'btn-primary': final.imagen != ''}" type="button" class="btn" data-toggle="modal" data-target="#_{{$index}}">ver final</button>
-                    <div id="_{{$index}}" class="mimodal modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <button ng-class="{'ng-hide': final.urlImg == '' , 'btn-primary': final.urlImg != ''}" type="button"
+                        class="btn" data-toggle="modal" data-target="#_{{$index}}">ver final</button>
+                    <div id="_{{$index}}" class="mimodal modal fade" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    <img src="{{final.imagen}}" class="img-responsive">
+                                    <img src="{{final.urlImg}}" class="img-responsive">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nuevo
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="nuevoFinal.materia" style="width:100px"></input>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="nuevoFinal.fecha" style="width:100px"></input>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="nuevoFinal.urlForo"  style="width:100px"></input>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="nuevoFinal.urlImg" style="width:100px"></input>
+                </td>
+                <td>
+                    <div class="btn btn-warning" ng-click="agregarFinalClick()" ng-disabled="isInCallback">Agregar</div>
+                    </td>
             </tr>
         </tbody>
     </table>
+    
 
 
 </body>
 
 </html>
+
+<script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.3.1/stitch.js"></script>
+<script src="./buscador.module.js"></script>
+<script src="./buscador.service.js"></script>
+<script src="./buscador.controller.js"></script>
