@@ -34,9 +34,7 @@
             function miFuncion() {
 
                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
-                client.auth.loginWithCredential(credential).then(user =>
-                    db.collection('examenes').updateOne({owner_id: client.auth.user.id}, {$set:{number:42}}, {upsert:true})
-                  ).then(doQuery).then(thenTwo).catch(errFunc);
+                client.auth.loginWithCredential(credential).then(doQuery).then(thenTwo).catch(errFunc);
             }
 
 
