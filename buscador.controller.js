@@ -4,59 +4,35 @@
     angular
         .module('buscadorApp')
         .controller('buscadorController', buscadorController)
-    buscadorController.$inject = ['$scope', '$window', 'buscadorService'];
+    buscadorController.$inject = ['$scope', '$interval'];
 
-    function buscadorController($scope, $window, buscadorService) {
+    function buscadorController($scope, $interval) {
 
         init();
 
         function init() {
 
-            $scope.finales = {};
-            $scope.buscar = _buscarFinal;
-            $scope.irAlForo = _irAlForo;
-            $scope.agregarFinalClick = _agregarFinalClick;
+            const client = stitch.Stitch.initializeDefaultAppClient('buscadorutn-irarn');
+            const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('buscador');
 
-            _listarFinales();
+            var doQuery = () =>
+                db.collection('examenes').find({}, {
+                    limit: 100
+                }).asArray()
 
-            function _agregarFinalClick() {
-                $scope.isInCallback = true;
-                _agregarFinal();
+            var thenTwo = docs => {
+                console.log("Found docs", docs[0].value);
+                $scope.imgData = docs[0].value;
             }
 
-            function _agregarFinal() {
-
-                buscadorService.postNuevoFinalMongo($scope.nuevoFinal).then(() => {
-                    _listarFinales();
-                }).catch(err => {
-                    console.error(err)
-                });
+            var errFunc = err => {
+                console.error(err)
             }
 
-            function _listarFinales() {
-                buscadorService.getListadoFinalesMongo().then(docs => {
-                        $scope.finales.datos = docs;
-                        console.table(docs);
-                        $scope.isInCallback = false;
-                    }).catch(err => {
-                        console.error(err)
-                    })
-                    .finally(function () {
-                        $scope.$apply();
-                    });
-            }
+            $interval(miFuncion, 500);
 
-            function _irAlForo(final) {
-                $window.open(final.urlForo, '_blank');
-            }
-
-            function _buscarFinal(filter) {
-                return function (final) {
-                    if (filter) {
-                        return final.materia.includes(filter.criterioMateria);
-                    }
-                    return true;
-                }
+            function miFuncion() {
+                client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(doQuery).then(thenTwo).catch(errFunc);
             }
         }
     }

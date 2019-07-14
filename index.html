@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="buscadorApp">
+<html lang="en">
 
 <head>
     <style type="text/css">
@@ -10,7 +10,7 @@
         }
     </style>
     <meta charset="utf-8" />
-    <title>Buscador finales UTN</title>
+    <title>TP UTN</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -22,147 +22,25 @@
     </script>
 </head>
 
-<body ng-controller='buscadorController'>
+<body ng-app="buscadorApp" ng-controller='buscadorController'>
+
     <div class="jumbotron masthead">
         <div class="container">
-            <h1>Buscador de finales</h1>
-            <p>Herramienta para navegar finales de UTN</p>
-            <ul class="masthead-links">
-                <li>
-                    Version 1.0.0
-                </li>
-            </ul>
+            <h1>Proyecto cámara Arduino</h1>
+            <p>TP - Sistemas embebidos - UTN</p>
         </div>
     </div>
-    <table class="table">
-        <thead class="thead-inverse">
-            <tr>
-                <th>
-                    <table>
-                        <tr>
-                            <td>#</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-                <th>
-                    <table>
-                        <tr>
-                            <td>Materia</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" ng-model="filter.criterioMateria" style="width:100px"></input>
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-                <th>
-                    <table>
-                        <tr>
-                            <td>Tipo</td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-                <th>
-                    <table>
-                        <tr>
-                            <td>Fecha</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                    <!-- <input type="text" class="form-control" ng-model="filter.criterioFecha" style="width:100px"></input> -->
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-                <th>
-                    <table>
-                        <tr>
-                            <td>Link foro</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-                <th>
-                    <table>
-                        <tr>
-                            <td>Imagen</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="final in finales.datos  | filter:buscar(filter) track by $index">
-                <th scope="row">{{$index + 1}}</th>
-                <td>{{final.materia}}</td>
-                <td>{{final.tipo}}</td>
-                <td>{{final.fecha}}</td>
-                <td><button target="_blank" class="btn btn-success" ng-click="irAlForo(final)">Ver en utnianos</button>
-                </td>
-                <td>
-                    <button ng-class="{'ng-hide': final.urlImg == '' , 'btn-primary': final.urlImg != ''}" type="button"
-                        class="btn" data-toggle="modal" data-target="#_{{$index}}">ver final</button>
-                    <div id="_{{$index}}" class="mimodal modal fade" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <img src="{{final.urlImg}}" class="img-responsive">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Nuevo
-                </td>
-                <td>
-                    <input type="text" class="form-control" ng-model="nuevoFinal.materia" style="width:100px"></input>
-                </td>
-                <td>
-                    <input type="text" class="form-control" ng-model="nuevoFinal.tipo" style="width:100px"></input>
-                </td>
-                <td>
-                    <input type="text" class="form-control" ng-model="nuevoFinal.fecha" style="width:100px"></input>
-                </td>
-                <td>
-                    <input type="text" class="form-control" ng-model="nuevoFinal.urlForo"  style="width:100px"></input>
-                </td>
-                <td>
-                    <input type="text" class="form-control" ng-model="nuevoFinal.urlImg" style="width:100px"></input>
-                </td>
-                <td>
-                    <div class="btn btn-warning" ng-click="agregarFinalClick()" ng-disabled="isInCallback">Agregar</div>
-                    </td>
-            </tr>
-        </tbody>
-    </table>
-    
-
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <img  src="{{imgData}}" />
+            </div>
+            <div class="col-6 text-truncate">
+                <p>{{imgData}}</p>
+            </div>
+        </div>
+    </div>
 
 </body>
 
@@ -170,5 +48,4 @@
 
 <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.3.1/stitch.js"></script>
 <script src="./buscador.module.js"></script>
-<script src="./buscador.service.js"></script>
 <script src="./buscador.controller.js"></script>
