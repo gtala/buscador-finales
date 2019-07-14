@@ -11,6 +11,7 @@
         init();
 
         function init() {
+			//
 
             const client = stitch.Stitch.initializeDefaultAppClient('buscadorutn-irarn');
             const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('buscador');
