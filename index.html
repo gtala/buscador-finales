@@ -20,6 +20,12 @@
     <meta name="author" content="Guilllermo Tala" />
     <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9">
     </script>
+
+    <script type="module">
+        import QrScanner from "./qr-scanner.min.js";
+            QrScanner.WORKER_PATH = './qr-scanner-worker.min.js';
+        console.log(QrScanner)
+        </script>
 </head>
 
 <body ng-app="buscadorApp" ng-controller='buscadorController'>
@@ -34,7 +40,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <img  src="{{imgData}}" />
+                <img src="{{imgData}}" />
             </div>
             <div class="col-6 text-truncate">
                 <p>{{imgData}}</p>
