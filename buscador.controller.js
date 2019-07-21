@@ -7,7 +7,7 @@
     buscadorController.$inject = ['$scope', '$interval', 'QrScanner'];
 
     function buscadorController($scope, $interval, QrScanner) {
-        console.log(QrScanner)
+        //console.log(QrScanner)
         init();
 
         function init() {
@@ -25,8 +25,8 @@
                 $scope.imgData = docs[0].value;
 
                 var image = document.getElementsByTagName('img')[0];
-                console.log(image)
-                QrScanner.scanImage(image).then(result => console.log(result)).catch(error => console.log(error || 'No QR code found.'));
+                //console.log(image)
+                QrScanner.scanImage(image).then(result => $scope.result = result ).catch(error => console.log(error || 'No QR code found.'));
 
             }
 
