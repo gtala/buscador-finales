@@ -4,10 +4,10 @@
     angular
         .module('buscadorApp')
         .controller('buscadorController', buscadorController)
-    buscadorController.$inject = ['$scope', '$interval'];
+    buscadorController.$inject = ['$scope', '$interval', 'QrScanner'];
 
-    function buscadorController($scope, $interval) {
-
+    function buscadorController($scope, $interval, QrScanner) {
+        console.log(QrScanner)
         init();
 
         function init() {
@@ -37,8 +37,6 @@
             $interval(miFuncion, 500);
 
             function miFuncion() {
-
-
                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
                 client.auth.loginWithCredential(credential).then(doQuery).then(thenTwo).catch(errFunc);
             }

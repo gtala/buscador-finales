@@ -23,8 +23,8 @@
 
     <script type="module">
         import QrScanner from "./qr-scanner.min.js";
-            QrScanner.WORKER_PATH = './qr-scanner-worker.min.js';
-        console.log(QrScanner)
+        QrScanner.WORKER_PATH = './qr-scanner-worker.min.js';    
+        angular.module('buscadorApp').constant('QrScanner',  QrScanner)
         </script>
 </head>
 
@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <img src="{{imgData}}" name = "img"/>
+                <img src="{{imgData}}" name="img" />
             </div>
             <div class="col-6 text-truncate">
                 <p>{{imgData}}</p>
@@ -54,4 +54,4 @@
 
 <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.3.1/stitch.js"></script>
 <script src="./buscador.module.js"></script>
-<script src="./buscador.controller.js"></script>
+<script src="./buscador.controller.js"></script>    
