@@ -21,7 +21,7 @@
                 }).asArray()
 
             var thenTwo = docs => {
-                console.log("Found docs", docs[0].value);
+                console.log("Found docs", docs[0]);
                 $scope.imgData = docs[0].value;
 
                 var image = document.getElementsByTagName('img')[0];
