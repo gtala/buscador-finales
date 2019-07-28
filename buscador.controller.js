@@ -22,13 +22,15 @@
 
             var thenTwo = docs => {
                 console.log("Found docs", docs[0]);
-                $scope.imgData = docs[0].value;
+
+                var data = docs[0];
+                $scope.imgData = data.value;
 
                 var image = document.getElementsByTagName('img')[0];
                 //console.log(image)
                 QrScanner.scanImage(image).then(result => {
                     $scope.result = result
-                    if (result == $scope.imgData.value_bluetooth) {
+                    if (result == data.value_bluetooth) {
                         alert("Match!");
                     }
                 }).catch(error => console.log(error || 'No QR code found.'));
