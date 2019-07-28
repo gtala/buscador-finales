@@ -44,7 +44,7 @@
                 console.log("Found docs", docs[0]);
                 var data = docs[0];
 
-                if ($scope.imgData != data.value) 
+//                if ($scope.imgData != data.value) 
                 {
                     $scope.imgData = data.value;
                     var image = document.getElementsByTagName('img')[0];
