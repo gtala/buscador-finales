@@ -21,7 +21,7 @@
                 }).asArray()
 
 
-            var updateData = () => {
+            var updateData = (match) => {
 
                 const query = {
                     "owner_id": "5d2b68d90bee4f2bbdd35386"
@@ -29,7 +29,7 @@
 
                 const update = {
                     "$set": {
-                        "match": true
+                        "match": match
                     }
                 };
                 const options = {
@@ -39,26 +39,33 @@
                 db.collection('examenes').updateOne(query, update, options)
             }
 
-
-
-            var thenTwo = docs => {
+            var queryCallback = docs => {
+                
                 console.log("Found docs", docs[0]);
-
                 var data = docs[0];
-                $scope.imgData = data.value;
 
-                var image = document.getElementsByTagName('img')[0];
-                //console.log(image)
-                QrScanner.scanImage(image).then(result => {
-                    $scope.result = result
-                    if (result == data.value_bluetooth) {
-                        alert("Match!");
-                        const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
-                        client.auth.loginWithCredential(credential).then(updateData)
-                        console.log("updated!")
-                    }
-                }).catch(error => console.log(error || 'No QR code found.'));
+                if ($scope.imgData != data.value) 
+                {
+                    $scope.imgData = data.value;
+                    var image = document.getElementsByTagName('img')[0];
 
+                    //console.log(image)
+                    QrScanner.scanImage(image).then(
+                        result => 
+                        {
+                            $scope.result = result
+
+                            var match = result == data.value_bluetooth
+                            if (match) 
+                            {
+                                $scope.showSuccess = match
+                                const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
+                                client.auth.loginWithCredential(credential).then(() => updateData(match))
+                                console.log("updated!")
+                            }
+                        }
+                    ).catch(error => console.log(error || 'No QR code found.'));
+                }
             }
 
             var errFunc = err => {
@@ -69,7 +76,7 @@
 
             function miFuncion() {
                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
-                client.auth.loginWithCredential(credential).then(doQuery).then(thenTwo).catch(errFunc);
+                client.auth.loginWithCredential(credential).then(doQuery).then(queryCallback).catch(errFunc);
             }
 
 
