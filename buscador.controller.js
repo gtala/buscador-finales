@@ -26,7 +26,12 @@
 
                 var image = document.getElementsByTagName('img')[0];
                 //console.log(image)
-                QrScanner.scanImage(image).then(result => $scope.result = result ).catch(error => console.log(error || 'No QR code found.'));
+                QrScanner.scanImage(image).then(result => {
+                    $scope.result = result
+                    if (result == $scope.imgData.value_bluetooth) {
+                        alert("Match!");
+                    }
+                }).catch(error => console.log(error || 'No QR code found.'));
 
             }
 
