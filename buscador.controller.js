@@ -21,7 +21,7 @@
                 }).asArray()
 
 
-            var updateData = (match) => {
+            var updateData = () => {
 
                 const query = {
                     "owner_id": "5d2b68d90bee4f2bbdd35386"
@@ -29,7 +29,7 @@
 
                 const update = {
                     "$set": {
-                        "match": match
+                        "match": $scope.match
                     }
                 };
                 const options = {
@@ -54,13 +54,11 @@
                         result => 
                         {
                             $scope.result = result
-
-                            var match = result == data.value_bluetooth
-                            if (match) 
+                            $scope.match = result == data.value_bluetooth
+                            if ($scope.match) 
                             {
-                                $scope.showSuccess = match
                                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
-                                client.auth.loginWithCredential(credential).then(() => updateData(match))
+                                client.auth.loginWithCredential(credential).then(updateData)
                                 console.log("updated!")
                             }
                         }
