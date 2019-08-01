@@ -59,7 +59,7 @@
                     }
                 ).catch(error => {
                     console.log(error || 'No QR code found.');
-                    $scope.data.imgData = notFoundImg;
+                  //  $scope.data.imgData = notFoundImg;
                     $scope.match = false
                 }).finally(() => {
                     const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
