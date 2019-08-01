@@ -40,28 +40,29 @@
             }
 
             var queryCallback = docs => {
-                
+
                 console.log("Found docs", docs[0]);
                 var data = docs[0];
 
-//                if ($scope.imgData != data.value) 
+                //                if ($scope.imgData != data.value) 
                 {
                     $scope.imgData = data.value;
                     var image = document.getElementsByTagName('img')[0];
 
                     //console.log(image)
                     QrScanner.scanImage(image).then(
-                        result => 
-                        {
+                        result => {
                             $scope.result = result
-                            $scope.match = result == data.value_bluetooth
-                            {
-                                const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
-                                client.auth.loginWithCredential(credential).then(updateData)
-                                console.log("updated!")
-                            }
+                            $scope.match = (result == data.value_bluetooth)
                         }
-                    ).catch(error => console.log(error || 'No QR code found.'));
+                    ).catch(error => {
+                        console.log(error || 'No QR code found.');
+                        $scope.match = false
+                    }).finally(() => {
+                        const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
+                        client.auth.loginWithCredential(credential).then(updateData)
+                        console.log("updated!")
+                    });
                 }
             }
 
@@ -69,7 +70,7 @@
                 console.error(err)
             }
 
-          //  $interval(miFuncion, 500);
+            //  $interval(miFuncion, 500);
 
             function miFuncion() {
                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
