@@ -55,7 +55,6 @@
                         {
                             $scope.result = result
                             $scope.match = result == data.value_bluetooth
-                            if ($scope.match) 
                             {
                                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
                                 client.auth.loginWithCredential(credential).then(updateData)
