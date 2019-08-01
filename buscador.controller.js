@@ -36,7 +36,7 @@
                     "upsert": false
                 };
 
-                db.collection('examenes').updateOne(query, update, options)
+                db.collection('examenes').updateOne(query, update, options).then(doQuery).then(queryCallback).catch(errFunc);
             }
 
             var queryCallback = docs => {
@@ -69,12 +69,14 @@
                 console.error(err)
             }
 
-            $interval(miFuncion, 500);
+          //  $interval(miFuncion, 500);
 
             function miFuncion() {
                 const credential = new stitch.UserApiKeyCredential("Zwnedcd9uCH4xS3UuljVNJCiXvHQKaYVtTl32tHGa8RrCpBzNiajUO3v5lly8Hcf")
                 client.auth.loginWithCredential(credential).then(doQuery).then(queryCallback).catch(errFunc);
             }
+
+            miFuncion()
 
 
         }
